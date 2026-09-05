@@ -1,2 +1,2 @@
-# Cursded-Battle-PT_BR
+# Cursed-Battle-PT_BR
 Site oficial do Cursed Battle - RPG de Jujutsu Kaisen
