@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Criação de Personagem | Cursed Battle</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #070707;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* MENU */
+
+        .menu-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+
+            z-index: 1000;
+
+            background: transparent;
+            border: none;
+
+            color: white;
+
+            font-size: 32px;
+
+            cursor: pointer;
+        }
+
+        .menu-button:hover {
+            color: #b00000;
+        }
+
+        /* MENU LATERAL */
+
+        .side-menu {
+            position: fixed;
+
+            top: 0;
+            left: -320px;
+
+            width: 300px;
+            height: 100vh;
+
+            background: #0d0d0d;
+
+            border-right: 1px solid #333;
+
+            padding: 80px 30px;
+
+            transition: 0.4s;
+
+            z-index: 999;
+
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            margin-bottom: 30px;
+
+            letter-spacing: 3px;
+        }
+
+        .side-menu a {
+            display: block;
+
+            color: #ccc;
+
+            text-decoration: none;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #222;
+
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: white;
+
+            padding-left: 8px;
+        }
+
+        /* CABEÇALHO */
+
+        header {
+            padding: 110px 25px 60px;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #3a0000 0%,
+                    #160000 40%,
+                    #070707 80%
+                );
+
+            border-bottom: 1px solid #222;
+        }
+
+        .small-title {
+            color: #aaa;
+
+            text-transform: uppercase;
+
+            letter-spacing: 5px;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(45px, 8vw, 90px);
+
+            letter-spacing: 6px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        header p {
+            max-width: 750px;
+
+            margin: auto;
+
+            color: #bbb;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+        }
+
+        /* CONTEÚDO */
+
+        main {
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 70px 25px;
+        }
+
+        .intro {
+            text-align: center;
+
+            margin-bottom: 60px;
+        }
+
+        .intro h2 {
+            font-size: 32px;
+
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            color: #aaa;
+
+            line-height: 1.7;
+
+            font-size: 17px;
+        }
+
+        /* ETAPAS */
+
+        .step {
+            background: #0d0d0d;
+
+            border: 1px solid #292929;
+
+            margin-bottom: 25px;
+
+            padding: 30px;
+
+            transition: 0.3s;
+        }
+
+        .step:hover {
+            border-color: #700000;
+
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            color: #900000;
+
+            font-size: 14px;
+
+            letter-spacing: 3px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .step h2 {
+            font-size: 26px;
+
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            color: #bbb;
+
+            line-height: 1.7;
+
+            margin-bottom: 15px;
+        }
+
+        .step ul {
+            margin-left: 25px;
+
+            color: #bbb;
+
+            line-height: 1.8;
+        }
+
+        .step li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            color: white;
+
+            font-weight: bold;
+        }
+
+        /* ORIGENS */
+
+        .origin-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 12px;
+
+            margin-top: 20px;
+        }
+
+        .origin {
+            background: #151515;
+
+            border: 1px solid #252525;
+
+            padding: 15px;
+
+            color: #ddd;
+        }
+
+        /* ESPECIALIDADES */
+
+        .specialties {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .specialty {
+            background: #151515;
+
+            border-left: 3px solid #700000;
+
+            padding: 12px;
+
+            color: #ccc;
+        }
+
+        /* FINAL */
+
+        .finish {
+            margin-top: 60px;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border: 1px solid #333;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #210000,
+                    #0d0d0d 70%
+                );
+        }
+
+        .finish h2 {
+            margin-bottom: 15px;
+
+            font-size: 30px;
+        }
+
+        .finish p {
+            color: #bbb;
+
+            line-height: 1.7;
+
+            margin-bottom: 25px;
+        }
+
+        .back-button {
+            display: inline-block;
+
+            padding: 14px 25px;
+
+            border: 1px solid white;
+
+            color: white;
+
+            text-decoration: none;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: white;
+
+            color: black;
+        }
+
+        /* CELULAR */
+
+        @media (max-width: 600px) {
+
+            .side-menu {
+                width: 280px;
+            }
+
+            header h1 {
+                font-size: 45px;
+
+                letter-spacing: 3px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            .step {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BOTÃO DO MENU -->
+
+    <button
+        class="menu-button"
+        onclick="abrirMenu()">
+
+        ⋮
+
+    </button>
+
+
+    <!-- MENU LATERAL -->
+
+    <nav
+        class="side-menu"
+        id="sideMenu">
+
+        <h2>CURSED BATTLE</h2>
+
+        <a href="index.html">
+            🏠 Início
+        </a>
+
+        <a href="criacao-personagem.html">
+            ⚔️ Jogue Agora
+        </a>
+
+        <a href="#">
+            📚 Sistemas
+        </a>
+
+        <a href="#">
+            🌀 Técnicas Jujutsu
+        </a>
+
+        <a href="#">
+            🔄 Energia Reversa
+        </a>
+
+        <a href="#">
+            ✨ Técnicas Inatas
+        </a>
+
+        <a href="#">
+            🧱 Técnicas de Barreira
+        </a>
+
+        <a href="#">
+            🔮 Artes Secretas
+        </a>
+
+        <a href="#">
+            ⚡ Traços de Energia Amaldiçoada
+        </a>
+
+        <a href="#">
+            🌎 Universo
+        </a>
+
+        <a href="#">
+            🎒 Equipamentos
+        </a>
+
+        <a href="#">
+            📜 Administração
+        </a>
+
+    </nav>
+
+
+    <!-- CABEÇALHO -->
+
+    <header>
+
+        <div class="small-title">
+            Jogue Agora
+        </div>
+
+        <h1>
+            Criação de Personagem
+        </h1>
+
+        <p>
+            Antes de entrar no mundo de Cursed Battle,
+            você precisa descobrir quem é o seu personagem.
+        </p>
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+
+    <main>
+
+
+        <section class="intro">
+
+            <h2>
+                Bem-vindo ao Cursed Battle
+            </h2>
+
+            <p>
+                Aqui começa a sua jornada.
+
+                A criação de personagem define sua origem,
+                sua linhagem, suas habilidades e o caminho
+                que você seguirá dentro do mundo de Cursed Battle.
+            </p>
+
+        </section>
+
+
+        <!-- ORIGEM -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 01
+            </div>
+
+            <h2>
+                🌑 Escolha sua Origem
+            </h2>
+
+            <p>
+                Sua origem determina a natureza do seu personagem
+                e influencia diretamente suas possibilidades
+                dentro do RPG.
+            </p>
+
+            <p>
+                No grupo de recrutamento, utilize:
+            </p>
+
+            <p class="highlight">
+                /origem
+            </p>
+
+            <div class="origin-list">
+
+                <div class="origin">
+                    ⚔️ Feiticeiro Jujutsu
+                </div>
+
+                <div class="origin">
+                    👹 Maldição
+                </div>
+
+                <div class="origin">
+                    🧟 Cadáver Amaldiçoado
+                </div>
+
+                <div class="origin">
+                    💪 Humano Aprimorado
+                </div>
+
+                <div class="origin">
+                    🩸 Pintura da Morte
+                </div>
+
+                <div class="origin">
+                    👻 Espírito Amaldiçoado
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CLÃ -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 02
+            </div>
+
+            <h2>
+                🏯 Escolha seu Clã
+            </h2>
+
+            <p>
+                Caso seu personagem seja humano,
+                você poderá escolher entre ser
+                um personagem
+                <span class="highlight">
+                    Autônomo
+                </span>
+                ou pertencer a um
+                <span class="highlight">
+                    Clã Herdado
+                </span>.
+            </p>
+
+            <p>
+
+                <span class="highlight">
+                    Autônomo:
+                </span>
+
+                recebe +10% de XP em todas as atividades,
+                mas não recebe benefícios de um clã.
+
+                Também possui liberdade para criar sua
+                própria técnica inata.
+
+            </p>
+
+            <p>
+
+                <span class="highlight">
+                    Herdado:
+                </span>
+
+                pertence a uma linhagem e recebe os benefícios
+                correspondentes ao seu clã.
+
+            </p>
+
+            <p>
+                Para determinar seu clã, utilize:
+            </p>
+
+            <p class="highlight">
+                /clã
+            </p>
+
+            <p>
+                O sorteio deve ser realizado duas vezes.
+            </p>
+
+        </section>
+
+
+        <!-- TÉCNICA INATA -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 03
+            </div>
+
+            <h2>
+                🌀 Técnica Inata
+            </h2>
+
+            <p>
+                A Técnica Inata é uma das principais
+                características do seu personagem.
+            </p>
+
+            <p>
+                Feiticeiros devem utilizar:
+            </p>
+
+            <p class="highlight">
+                /Inataf
+            </p>
+
+            <p>
+                O comando deve ser utilizado duas vezes
+                para determinar as possibilidades.
+            </p>
+
+            <p>
+                Caso o resultado seja repetido ou a técnica
+                esteja indisponível, realize outro sorteio.
+            </p>
+
+            <p>
+
+                <span class="highlight">
+                    Importante:
+                </span>
+
+                um feiticeiro não pode possuir duas
+                técnicas inatas simultaneamente.
+
+            </p>
+
+        </section>
+
+
+        <!-- MALDIÇÕES -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 04
+            </div>
+
+            <h2>
+                👹 Regras para Maldições
+            </h2>
+
+            <p>
+                Maldições podem criar uma Técnica Inata
+                do zero ou utilizar:
+            </p>
+
+            <p class="highlight">
+                /Inatam
+            </p>
+
+            <p>
+                O comando deve ser utilizado duas vezes.
+            </p>
+
+            <p>
+                Maldições possuem
+                <span class="highlight">
+                    +25% de Energia Amaldiçoada
+                </span>
+                e são naturalmente capazes de se regenerar.
+            </p>
+
+            <p>
+                Em locais com alta concentração de Energia
+                Amaldiçoada, elas recebem ainda um aumento
+                de poder.
+            </p>
+
+        </section>
+
+
+        <!-- CADÁVER -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 05
+            </div>
+
+            <h2>
+                🧟 Cadáver Amaldiçoado
+            </h2>
+
+            <p>
+                Um Cadáver Amaldiçoado é um corpo artificial
+                criado através de técnicas avançadas de
+                Energia Amaldiçoada.
+            </p>
+
+            <p>
+                Diferente de um feiticeiro ou de uma maldição,
+                ele não recebe uma Técnica Inata tradicional.
+            </p>
+
+            <p>
+                Suas capacidades vêm de sua estrutura,
+                seus núcleos e de suas características especiais.
+            </p>
+
+        </section>
+
+
+        <!-- CLASSES ESPECIAIS -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 06
+            </div>
+
+            <h2>
+                🩸 Classes Especiais
+            </h2>
+
+            <p>
+                Algumas origens possuem características
+                especiais dentro do sistema.
+            </p>
+
+            <ul>
+
+                <li>
+                    <span class="highlight">
+                        Pintura da Morte:
+                    </span>
+
+                    pode possuir DNA de qualquer clã,
+                    ignorando os limites normais de vagas.
+                </li>
+
+                <li>
+                    <span class="highlight">
+                        Espírito Amaldiçoado:
+                    </span>
+
+                    pode herdar técnicas ou DNA de
+                    famílias jujutsu.
+                </li>
+
+                <li>
+                    <span class="highlight">
+                        Humano Aprimorado:
+                    </span>
+
+                    possui um corpo especialmente adaptado
+                    à Energia Amaldiçoada e pode servir como
+                    receptáculo.
+                </li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- TRAÇO -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 07
+            </div>
+
+            <h2>
+                ⚡ Traço Especial
+            </h2>
+
+            <p>
+                Caso seu personagem possua a característica
+                <span class="highlight">
+                    TRAÇO ESPECIAL
+                </span>
+                ou uma Técnica Inata relacionada a determinado
+                elemento, poderá possuir um traço único de
+                Energia Amaldiçoada.
+            </p>
+
+            <p>
+                Para determinar o traço, utilize:
+            </p>
+
+            <p class="highlight">
+                /tespecial
+            </p>
+
+        </section>
+
+
+        <!-- CARACTERÍSTICAS -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 08
+            </div>
+
+            <h2>
+                🎲 Características
+            </h2>
+
+            <p>
+                As características são benefícios únicos
+                que diferenciam os personagens e expandem
+                suas possibilidades durante o RPG.
+            </p>
+
+            <p>
+                No início, realize os sorteios correspondentes
+                aos graus:
+            </p>
+
+            <ul>
+
+                <li>
+                    <span class="highlight">
+                        /Rollm
+                    </span>
+                    — Médio
+                </li>
+
+                <li>
+                    <span class="highlight">
+                        /!Rolld
+                    </span>
+                    — Difícil
+                </li>
+
+                <li>
+                    <span class="highlight">
+                        /!Rollc
+                    </span>
+                    — Crítico
+                </li>
+
+            </ul>
+
+            <p>
+                Cada grau adquirido concede uma nova
+                característica.
+            </p>
+
+        </section>
+
+
+        <!-- ESPECIALIDADES -->
+
+        <section class="step">
+
+            <div class="step-number">
+                ETAPA 09
+            </div>
+
+            <h2>
+                📚 Especialidades
+            </h2>
+
+            <p>
+                Cada grau concede uma especialidade.
+
+                Elas permitem que seu personagem desenvolva
+                diferentes áreas de conhecimento e combate.
+            </p>
+
+            <div class="specialties">
+
+                <div class="specialty">
+                    01 — Controle de Energia Amaldiçoada
+                </div>
+
+                <div class="specialty">
+                    02 — Energia Reversa
+                </div>
+
+                <div class="specialty">
+                    03 — Shikigamis
+                </div>
+
+                <div class="specialty">
+                    04 — Manipulação de Barreira
+                </div>
+
+                <div class="specialty">
+                    05 — Expansão de Domínio
+                </div>
+
+                <div class="specialty">
+                    06 — Kenjutsu
+                </div>
+
+                <div class="specialty">
+                    07 — Bukijutsu
+                </div>
+
+                <div class="specialty">
+                    08 — Anti-Domínio
+                </div>
+
+                <div class="specialty">
+                    09 — Reversão de Feitiço
+                </div>
+
+                <div class="specialty">
+                    10 — Taijutsu
+                </div>
+
+                <div class="specialty">
+                    11 — Selos e Encantamentos
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL -->
+
+        <section class="finish">
+
+            <h2>
+                ⚔️ Seu personagem está pronto
+            </h2>
+
+            <p>
+                Depois de definir sua origem, clã, técnica,
+                características e especialidades, chegou a hora
+                de preencher sua ficha e começar sua história
+                dentro de Cursed Battle.
+            </p>
+
+            <a
+                href="index.html"
+                class="back-button">
+
+                ← Voltar para o início
+
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function abrirMenu() {
+
+            const menu =
+                document.getElementById("sideMenu");
+
+            menu.classList.toggle("active");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
