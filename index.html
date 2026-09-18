@@ -75,39 +75,66 @@
            MENU LATERAL
         ========================= */
 
-   .side-menu {
-    position: fixed;
-    top: 0;
-    left: -320px;
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
 
-    width: 300px;
-    height: 100vh;
+            width: 300px;
+            height: 100vh;
 
-    background: #0d0d0d;
-    border-right: 1px solid #333;
+            background: #0d0d0d;
+            border-right: 1px solid #333;
 
-    padding: 80px 30px;
+            padding: 80px 30px;
 
-    transition: 0.4s;
+            transition: 0.4s;
 
-    z-index: 999;
+            z-index: 999;
 
-    /* NOVO: permite rolagem vertical */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* rolagem suave no celular */
-}
+            /* NOVO: permite rolagem vertical */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
-/* Estilo da barra de rolagem no Chrome */
-.side-menu::-webkit-scrollbar {
-    width: 6px;
-}
-.side-menu::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 3px;
-}
-.side-menu::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
+        .side-menu.active {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .side-menu a {
+            display: block;
+
+            color: #ccc;
+            text-decoration: none;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #222;
+
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: white;
+            padding-left: 8px;
+        }
+
+        /* Estilo da barra de rolagem */
+        .side-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+        .side-menu::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+        .side-menu::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
 
         /* =========================
            PÁGINA PRINCIPAL
@@ -254,117 +281,67 @@
 <body>
 
     <!-- BOTÃO DO MENU -->
-
     <button class="menu-button" onclick="abrirMenu()">
         ⋮
     </button>
 
-
     <!-- BOTÃO DE NOTÍCIAS -->
-
     <button class="news-button">
         📰 NOTÍCIAS
     </button>
 
-
     <!-- MENU LATERAL -->
-
     <nav class="side-menu" id="sideMenu">
-
         <h2>CURSED BATTLE</h2>
-
         <a href="index.html">🏠 Início</a>
-
         <a href="#">⚔️ Jogue Agora</a>
-
         <a href="#">📚 Sistemas</a>
-
         <a href="#">🌀 Técnicas Jujutsu</a>
-
         <a href="#">🔄 Energia Reversa</a>
-
         <a href="#">✨ Técnicas Inatas</a>
-
         <a href="#">🧱 Técnicas de Barreira</a>
-
         <a href="#">🔮 Artes Secretas</a>
-
         <a href="#">⚡ Traços de Energia Amaldiçoada</a>
-
         <a href="#">🌎 Universo</a>
-
         <a href="#">🎒 Equipamentos</a>
-
         <a href="#">📜 Administração</a>
-
     </nav>
 
-
     <!-- PÁGINA PRINCIPAL -->
-
     <main class="hero">
-
         <div class="content">
-
             <div class="small-title">
                 RPG de Jujutsu Kaisen
             </div>
-
-            <h1>
-                Cursed Battle
-            </h1>
-
-            <h2 class="welcome">
-                Bem-vindo ao RPG de Cursed Battle
-            </h2>
-
+            <h1>Cursed Battle</h1>
+            <h2 class="welcome">Bem-vindo ao RPG de Cursed Battle</h2>
             <p class="description">
-
                 Cursed Battle é um RPG baseado no universo de
                 Jujutsu Kaisen, criado para ser jogado pelo WhatsApp.
-
                 Aqui, você poderá criar seu próprio personagem,
                 desenvolver suas habilidades, enfrentar maldições,
                 participar de missões e construir sua própria história.
-
             </p>
-
-            <p class="creator">
-                Criado por Lucas Feitosa da Silva.
-            </p>
-
+            <p class="creator">Criado por Lucas Feitosa da Silva.</p>
 
             <!-- BOTÕES -->
-
             <div class="buttons">
-
-                <a href="#" class="button">
+                <a href="criacao-personagem.html" class="button">
                     ⚔️ Criar seu personagem
                 </a>
-
                 <a href="#" class="button secondary">
                     🌎 Conhecer o mundo
                 </a>
-
             </div>
-
         </div>
-
     </main>
 
-
     <!-- JAVASCRIPT -->
-
     <script>
-
         function abrirMenu() {
-
             const menu = document.getElementById("sideMenu");
-
             menu.classList.toggle("active");
-
         }
-
     </script>
 
 </body>
